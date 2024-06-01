@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <style>
+    .dropdown-menu {
+        position: static;
+        display: block;
+        width: auto;
+        margin: 4rem auto
+    }
+</style>
+
+</head>
+<body>
+<div class="container mt-5">
+    <h2>{{ title }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            {% block upload_content %}{% endblock %}
+        </div>
+        <div class="mb-3">
+            <label for="description">资源描述</label>
+            <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="policy" class="form-label">访问结构</label>
+            <div class="dropdown-menu p-0 m-0 rounded-3 overflow-hidden" style="width: 100%;">
+                <input type="search" class="form-control" id="policy" name="policy" autocomplete="false"
+                       placeholder="例：((ONE and THREE) and (TWO or FOUR))" data-bs-toggle="collapse" data-bs-target="#demo">
+                <ul class="list-unstyled mb-0 collapse" id="demo">
+                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:addval('and')">and</a></li>
+                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:addval('or')">or</a></li>
+                    {% for attribute in attributes %}
+                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:addval('{{ attribute.name }}')">{{ attribute.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="encrypt_type">加密方案</label>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="bsw07" name="encrypt_type" value="bsw07" checked>
+              <label class="form-check-label" for="bsw07">bsw07</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="rsa24" name="encrypt_type" value="rsa24">
+              <label class="form-check-label" for="rsa24">rsa24</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary float-end">确认</button>
+    </form>
+</div>
+<script>
+    function addval(str){
+        poitem=document.getElementById('policy')
+        poitem.value=poitem.value.trim()+' '+str
+    }
+</script>
+</body>
+</html>

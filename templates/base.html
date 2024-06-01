@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源访问控制系统</title>
+    <link rel="stylesheet" href="/static/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .main-content {
+            padding: 5px;
+        }
+
+        .main-content2 {
+            border: 2px solid #555555;
+            border-radius: 5px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        html,
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(79, 79, 79);
+        }
+
+        .sidebar-ground {
+            background-color: #2c2e2f;
+        }
+
+        .sidebar-ground div,
+        .sidebar-ground button {
+            width: 100%;
+        }
+
+        .sidebar-ground button {
+            background-color: rgba(0, 0, 0, 0);
+            border: 0;
+            border-bottom: 1px solid rgb(84, 84, 84);
+            padding: 10px;
+            color: rgb(171, 171, 171);
+        }
+
+        .sidebar-ground button:hover {
+            color: rgb(243, 243, 243);
+        }
+
+        #sidebarMenu>button {
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+
+<body class="d-flex flex-column">
+
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="height: 40px" href="#">
+                <img src="/static/photos/Beacon.png" style="height: 100%">
+                <span>Beacon</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ kzt }}" href="{{ url_for('manage.index') }}"><i class="fa fa-wrench"></i> 控制台</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ zy }}" href="{{ url_for('resource.index') }}"><i class="fa fa-folder"></i> 资源</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ yh }}" href="{{ url_for('user.index') }}"><i class="fa fa-user"></i> 用户</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a class="navbar-text me-2" href="{{ url_for('user.logout') }}">退出登录</a>
+                    <img src="/static/avatars/SCY.png" alt="User Avatar"
+                        class="rounded-circle me-2" style="width: 32px;">
+                    <button class="navbar-text btn btn-link" onclick="change_page('{{ url_for('user.check_user',id=g.user.id) }}')">{{ g.user.username }}</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid flex-grow-1 d-flex flex-column">
+        <div class="row flex-grow-1">
+            <!-- 侧边栏 -->
+            <div class="col-md-2 sidebar-ground">
+                <p></p>
+                <div class="card bg-dark">
+                    <img src="/static/photos/Beacon.png" style="width: 60%;margin: 10px auto">
+                    <h1 style="text-align: center;color: #e5e5e5">Beacon</h1>
+                </div>
+                <p></p>
+                <div class="btn-group-vertical" id="sidebarMenu">
+                    {% block menu %}{% endblock %}
+                </div>
+            </div>
+            <!-- 主要内容 -->
+            <div class="col-md-10 main-content">
+                <div class="main-content2"><iframe id="show_window" src=""></iframe></div>
+            </div>
+        </div>
+    </div>
+<script>
+    function change_page(page_url){
+        document.getElementById('show_window').src=page_url;
+    }
+</script>
+</body>
+
+</html>

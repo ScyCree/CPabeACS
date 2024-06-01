@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .login-form {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        input {
+            background-color: rgba(0, 0, 0, 0.4) !important;
+        }
+
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -9999;
+            /*灰色调*/
+            /*-webkit-filter:grayscale(100%)*/
+
+        }
+
+        .element {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; /* 自定义宽度 */
+            height: 150px; /* 自定义高度 */
+        }
+
+    </style>
+</head>
+<body class="d-flex flex-column justify-content-center">
+<video autoplay muted loop poster="/static/photos/loginPic.png" style="width: 100%">
+    <source src="https://scycree.oss-cn-beijing.aliyuncs.com/loginVideo.mp4">
+</video>
+
+<div class="toast element {{ show }}">
+    <div class="toast-header justify-content-between">
+        {{ title }}
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">
+        {{ msg }}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-end">
+        <div class="col-md-6">
+            <div class="card login-form">
+                <div class="card-body">
+                    <h4 class="text-center">
+                        <a class="text-light" href="{{ url_for('user.login') }}">登录</a>
+                        <span class="text-light">/</span>
+                        <a class="text-light" href="{{ url_for('user.signup') }}">注册</a>
+                    </h4>
+                    {% block form %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

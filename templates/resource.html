@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% set zy='active' %}
+{% block menu %}
+
+    <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#userFunctions">
+        <i class="fas fa-arrow-up"></i>
+        上传资源
+    </button>
+    <div id="userFunctions" class="collapse" data-bs-parent="#sidebarMenu">
+        <div class="btn-group-vertical">
+            <button type="button" onclick="change_page('{{ url_for('resource.upload_file') }}')"><i class="fa fa-upload"></i> 上传文件</button>
+            <button type="button" onclick="change_page('{{ url_for('resource.upload_text') }}')"><i class="fa fa-file-upload"></i> 上传文本</button>
+        </div>
+    </div>
+    <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#viewsource">
+        <i class="fas fa-box-open"></i>
+        管理资源
+    </button>
+    <div id="viewsource" class="collapse" data-bs-parent="#sidebarMenu">
+        <div class="btn-group-vertical">
+            <button type="button" onclick="change_page('{{ url_for('resource.search_resource') }}')"><i class="fa fa-search"></i> 检索资源</button>
+            <button type="button" onclick="change_page('{{ url_for('resource.my_resource') }}')"><i class="fa fa-file-alt"></i> 我的资源</button>
+            <button type="button" onclick="change_page('{{ url_for('resource.favorites') }}')"><i class="fa fa-star"></i> 我的收藏</button>
+        </div>
+    </div>
+{% endblock %}

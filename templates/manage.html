@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% set kzt='active' %}
+{% block menu %}
+
+    <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#userFunctions">
+        <i class="fas fa-database"></i>
+        资源管理
+    </button>
+    <div id="userFunctions" class="collapse" data-bs-parent="#sidebarMenu">
+        <div class="btn-group-vertical">
+            <button type="button" onclick="change_page('{{ url_for('manage.resource') }}')"><i class="fa fa-search"></i> 资源管理</button>
+        </div>
+    </div>
+
+    <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#systemFunctions">
+        <i class="fas fa-server"></i>
+        系统管理
+    </button>
+    <div id="systemFunctions" class="collapse" data-bs-parent="#sidebarMenu">
+        <div class="btn-group-vertical">
+            <button type="button" onclick="change_page('{{ url_for('manage.attribute') }}')"><i
+                    class="fa fa-address-card"></i> 属性管理
+            </button>
+            <button type="button" onclick="change_page('{{ url_for('manage.user') }}')"><i class="fa fa-users-cog"></i>
+                用户管理
+            </button>
+            <button type="button" onclick="change_page('{{ url_for('manage.system') }}')"><i class="fa fa-cog"></i> 系统管理</button>
+        </div>
+    </div>
+{% endblock %}

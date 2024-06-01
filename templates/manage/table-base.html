@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_name }}</title>
+    <link rel="stylesheet" href="/static/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>{{ page_name }}</h1>
+    {% block table %}{% endblock %}
+</div>
+<script>
+    function change_page(page_url){
+        document.location.href=page_url;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>编辑属性信息</title>
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2>编辑属性信息</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="attribute_name" class="form-label">属性名</label>
+      <input type="text" class="form-control" id="attribute_name" name="attribute_name" value="{{ attribute.name }}">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">属性描述</label>
+      <input type="text" class="form-control" id="description" name="description" value="{{ attribute.description }}">
+    </div>
+    <button type="submit" class="btn btn-primary">保存更改</button>
+  </form>
+</div>
+
+</body>
+</html>

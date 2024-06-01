@@ -1,0 +1,36 @@
+{% extends 'manage/table-base.html' %}
+{% set page_name='属性管理' %}
+{% block table %}
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" onclick="change_page('{{ url_for('manage.add_attribute') }}')">添加属性</button>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">属性名</th>
+            <th scope="col">描述</th>
+            <th scope="col">拥有者</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attribute in attributes %}
+        <tr>
+            <td>{{ attribute.name }}</td>
+            <td>{{ attribute.description }}</td>
+            <td style="padding: 0;"><select class="form-select">
+            {% for user in attribute.users %}
+                  <option>{{user.username}}</option>
+            {% endfor %}
+            </select>
+            </td>
+            <td style="padding: 5px;">
+                <button type="button" class="btn btn-sm btn-primary" onclick="change_page('{{ url_for('manage.edit_attribute',attribute_id=attribute.id)}}')"><i class="fa fa-pen"></i></button>
+                <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-lock"></i></button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="change_page('{{ url_for('manage.delete_attribute',attribute_id=attribute.id) }}')"><i class="fa fa-trash"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

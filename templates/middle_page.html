@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>通用中间页</title>
+  <style>
+    .message {
+      text-align: center;
+      margin-top: 200px;
+      font-size: 30px;
+    }
+    .tips{
+      text-align: center;
+      margin-top: 50px;
+      font-size: 10px;
+    }
+  </style>
+  <script>
+    var countdown=2;
+    var timer=setInterval(function () {
+        countdown -= 1;
+        document.getElementById('timer').innerText=countdown;
+        // 倒计时结束的时候执行
+        if (countdown <= 0) {
+            // 清掉定时器
+            clearInterval(timer);
+            window.location.href = "{{ url }}";
+        }
+
+    }, 1000);
+  </script>
+</head>
+<body style="background-color: white">
+  <div class="message">
+    <span>{{ message }}</span>
+  </div>
+<div class="tips">
+    <span id="timer">2</span><span>秒后自动跳转</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" href="/static/bootstrap5/css/bootstrap.min.css">
+    <script src="/static/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .head-bar{
+    height: 40px;
+    width: auto;
+}
+.infobox{
+    width: 800px;
+    min-height: 800px;
+    margin: 0 auto;
+    background-color: #fcfcfc;
+    box-shadow:2px 2px 5px #aaaaaa;
+    border-radius: 50px;
+    margin-bottom: 60px;
+}
+.basicbox{
+    height: 120px;
+    position: relative;
+}
+.head-frame{
+    width: 128px;
+    height: 128px;
+    margin-left: 20px;
+    position: absolute;
+    top: -20px;
+}
+.hover-txt{
+    border: 0;
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    height: 30%;
+    text-align: center;
+    font-size: 150%;
+    color: #ffffff;
+    background-color: rgba(203, 203, 203, 0.25);
+    display: none;
+}
+#cgimg{
+    display: none;
+}
+.head-img{
+    width: 128px;
+    height: 128px;
+    border-radius: 30px;
+    border: 3px solid #b7b7b7;
+
+}
+.basic-info{
+    width: 550px;
+    height: 120px;
+    position: absolute;
+    left: 200px;
+}
+.uname{
+    font-size: 40px;
+    font-weight: 500;
+    color: #4d4d4d;
+}
+.resource-info{
+    height: 30px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.info-key{
+    color: #868686;
+}
+.info-value{
+    color: #4d4d4d;
+    font-weight: bolder;
+}
+.info-sp{
+    border: #d5d5d5 solid 1px;
+    margin: 0 10px;
+}
+.join-time{
+    font-size: 16px;
+}
+.resource_box{
+    width: 700px;
+    margin: 15px auto;
+    border-top: 2px solid #bdbdbd;
+    padding: 10px;
+}
+.follow{
+    margin-left: 15px;
+    color: darkblue;
+    font-weight: bolder;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.follow:hover{
+    text-decoration: underline;
+    color: blue;
+}
+
+.follow-li{
+    margin-left: 15px;
+    color: #868686;
+}
+
+.follow-li:hover{
+    text-decoration: underline;
+    color: darkblue;
+}
+    </style>
+</head>
+<body>
+<div class="head-bar"></div>
+    <div class="infobox">
+        <div class="basicbox">
+            <div class="head-frame">
+                <img alt="用户头像" class="head-img" src="/static/avatars/SCY.png" >
+            </div>
+            <div class="basic-info">
+                <span class="uname">{{ user.username }}</span>
+                <span>uid: {{ user.id }}</span>
+                <div class="resource-info">
+                    <span class="info-key">资源: </span><span class="info-value">{{ user.resources|length }}</span>
+                    <span class="info-sp"></span>
+                    <span class="info-key">属性: </span>
+                    <span class="info-value">{{ user.attributes|length }}</span>
+                </div>
+                <div class="join-time">
+                    <span class="info-key">加入时间: </span>
+                    <span class="info-value">{{ user.join_time }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="resource_box">
+            <span class="info-key">Ta发布的资源:</span>
+            <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">资源名</th>
+            <th scope="col">类型</th>
+            <th scope="col">描述</th>
+            <th scope="col">加密方案</th>
+            <th scope="col">访问结构</th>
+            <th scope="col">上传者</th>
+            <th scope="col">操作</th>
+            <th scope="col">上传时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for resource in user.resources %}
+        <tr>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource.resource_type }}</td>
+            <td>{{ resource.description }}</td>
+            <td>{{ resource.encrypt_type }}</td>
+             <td>{{ resource.policy }}</td>
+             <td>{{ resource.owner.username }}</td>
+            <td style="padding: 5px;width: 85px">
+                <button type="button" class="btn btn-sm btn-success" onclick="change_page('{{ url_for('resource.get_resource',resource_id=resource.id) }}')"><i class="fa fa-download"></i></button>
+                <button type="button" class="btn btn-sm btn-warning text-light" onclick="change_page('{{ url_for('resource.favorite_resource',resource_id=resource.id) }}')"><i class="fa fa-star"></i></button>
+
+            </td>
+        <td>{{ resource.upload_time }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+<script>
+    function change_page(page_url){
+        document.location.href=page_url;
+    }
+</script>
+</body>
+</html>

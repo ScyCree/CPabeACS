@@ -1,0 +1,78 @@
+{% extends 'user/login-signup-base.html' %}
+{% block form %}
+    <form method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label text-light">用户名</label>
+            <input type="text" id="username" class="form-control text-light" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label text-light">邮箱</label>
+            <input type="email" class="form-control text-light" name="email" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="verifycode" class="form-label text-light">验证码</label>
+            <div class="input-group">
+                <input type="text" maxlength="6" id="captcha" class="form-control text-light" name="captcha"
+                       required>
+                <button type="button" id="sendcodebutton" class="btn btn-outline-success" onclick="sendCode();">
+                    发送验证码
+                </button>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label text-light">密码</label>
+            <input type="password" class="form-control text-light" name="password"
+                   id="exampleInputPassword1" required>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">注册</button>
+        </div>
+    </form>
+    <script>
+        function sendCode() {
+            var email = document.getElementById('exampleInputEmail1').value;
+            fetch("/user/sendCode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email
+                })
+            }).then(function (res) {
+                if (res.status === 200) {
+                    return res.json()
+                } else {
+                    alert('服务器状态异常，请稍后再试')
+                    return null
+                }
+            }).then(function (data){
+                if (data['code']==200){
+               var btn = document.getElementById('sendcodebutton');
+                    var countdown = 60;
+                    // 开始倒计时之前，就取消按钮的点击事件
+                    btn.disabled = true;
+                    var timer = setInterval(function () {
+                        btn.innerText = countdown;
+                        countdown -= 1;
+                        // 倒计时结束的时候执行
+                        if (countdown <= 0) {
+                            // 清掉定时器
+                            clearInterval(timer);
+                            // 将按钮的文字重新修改回来
+                            btn.innerText = "发送验证码";
+                            // 重新绑定点击事件
+                            btn.disabled = false;
+                        }
+
+                    }, 1000)}
+                else {
+                    alert(data['msg'])
+                }
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    </script>
+{% endblock %}

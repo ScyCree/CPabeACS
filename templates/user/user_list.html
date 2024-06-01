@@ -1,0 +1,36 @@
+{% extends 'manage/table-base.html' %}
+{% set page_name='用户列表' %}
+{% block table %}
+    <form class="form-range mb-3" style="width: 40%">
+        <div class="input-group">
+        <input type="text" class="form-control" name="key_word"
+               required>
+        <button class="btn btn-success">
+            搜索
+        </button>
+    </div>
+    </form>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">用户名</th>
+            <th scope="col">加入时间</th>
+            <th scope="col">属性</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td><a href="{{ url_for('user.check_user',id=user.id) }}" class="text">{{ user.username }}</a></td>
+            <td>{{ user.join_time }}</td>
+            <td style="padding: 0;"><select class="form-select">
+            {% for attribute in user.attributes %}
+                  <option>{{attribute.name}}</option>
+            {% endfor %}
+            </select>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'manage/table-base.html' %}
+{% set page_name='我的收藏' %}
+{% block table %}
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">资源名</th>
+            <th scope="col">类型</th>
+            <th scope="col">描述</th>
+            <th scope="col">访问结构</th>
+            <th scope="col">上传者</th>
+            <th scope="col">操作</th>
+            <th scope="col">上传时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for resource in resources %}
+        <tr>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource.resource_type }}</td>
+            <td>{{ resource.description }}</td>
+             <td>{{ resource.policy }}</td>
+             <td>{{ resource.owner.username }}</td>
+            <td style="padding: 5px;width: 85px">
+                <button type="button" class="btn btn-sm btn-success" onclick="change_page('{{ url_for('resource.get_resource',resource_id=resource.id) }}')"><i class="fa fa-download"></i></button>
+                <button type="button" class="btn btn-sm btn-warning" onclick="change_page('{{ url_for('resource.unfavorite_resource',resource_id=resource.id) }}')"><i class="fa fa-star"></i></button>
+            </td>
+        <td>{{ resource.upload_time }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

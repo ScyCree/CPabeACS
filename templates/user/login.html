@@ -1,0 +1,18 @@
+{% extends 'user/login-signup-base.html' %}
+{% block form%}
+<form method="post">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label text-light">邮箱</label>
+        <input type="email" class="form-control text-light" name="email" id="exampleInputEmail1"
+               aria-describedby="emailHelp" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label text-light">密码</label>
+        <input type="password" class="form-control text-light" name="password"
+               id="exampleInputPassword1" required>
+    </div>
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">登录</button>
+    </div>
+</form>
+{% endblock %}
